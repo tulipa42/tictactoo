@@ -44,6 +44,10 @@ class Board():
 
         return True
 
+    def is_full(self):
+
+        return self.empty_square not in self.squares
+
     def has_won(self):
 
         return (self.squares[0:3] != [self.empty_square]*3 and self.squares[0] == self.squares[1] == self.squares[2]) or \
@@ -73,7 +77,7 @@ if __name__ == '__main__':
 
     print(board)
     print()
-    while not board.has_won():
+    while not ( board.has_won() or board.is_full() ):
 
         valid_move = False
         while not valid_move:
@@ -83,7 +87,11 @@ if __name__ == '__main__':
                 board.move(square)
             if not board.has_won():
                 board.next_player()
+
         print()
         print(board)
-    
-    print(f'Player {board.current_player} has won!')
+
+    if board.has_won():    
+        print(f'Player {board.current_player} has won!')
+    else:
+        print(f'It is a tie.')

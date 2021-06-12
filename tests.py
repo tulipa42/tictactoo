@@ -88,6 +88,15 @@ class TestBoard(unittest.TestCase):
         self.assertTrue(board.valid_move('5'))
         self.assertTrue(board.valid_move('6'))
 
+    def test_is_full(self):
+        board = Board(['X', 'O'], 'a')
+        board.squares = ['X', 'X', 'O', ' ', 'O', 'a', 'O', 'X', 'X' ]
+        self.assertFalse(board.is_full())
+
+        board.squares = ['X', 'X', 'O', 'O', 'O', 'X', 'O', 'X', 'X' ]
+        self.assertTrue(board.is_full())
+
+
         
 
 if __name__ == '__main__':
