@@ -9,7 +9,17 @@ class Board():
         self.squares = [empty_square]*9
 
     
+    @staticmethod
+    def map_input(input):
+
+        numpad_to_indices = {7:0, 8:1, 9:2, 4:3, 5:4, 6:5, 1:6, 2:7, 3:8}
+
+        return numpad_to_indices[int(input)]
+
+    
     def valid_move(self, square):
+        # TODO: Map the move input from numpad to indices of the squares list.
+
         try:
             square = int(square)
         except ValueError as e:
@@ -38,6 +48,10 @@ class Board():
 
 
     def move(self, square):
+
+        # TODO: Map the move input from numpad to indices of the squares list. 
+        
+        
 
         # self.squares.insert(int(square), self.current_player)
         self.squares[int(square)] = self.current_player
@@ -81,7 +95,8 @@ if __name__ == '__main__':
 
         valid_move = False
         while not valid_move:
-            square = input(f'Player {board.current_player}. What is your move [0-{len(board.squares)-1}]? ')
+            numpad_input = input(f'Player {board.current_player}. What is your move (use numpad: 1-8 - upperleft is 7)? ')
+            square = board.map_input(numpad_input)
             valid_move = board.valid_move(square)
             if valid_move:
                 board.move(square)
