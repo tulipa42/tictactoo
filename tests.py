@@ -77,16 +77,11 @@ class TestBoard(unittest.TestCase):
         board = Board(['X', 'O'])
         board.squares = [' ', 'X', 'O', ' ', 'O', ' ', ' ', 'X', 'X' ]
 
-        self.assertFalse(board.valid_move('a'))
-        self.assertFalse(board.valid_move('!'))
-        self.assertFalse(board.valid_move('1'))
-        self.assertFalse(board.valid_move('11'))
-        self.assertFalse(board.valid_move('2'))
-        self.assertFalse(board.valid_move('qwertzuterwrtzr'))
-        self.assertTrue(board.valid_move('0'))
-        self.assertTrue(board.valid_move('3'))
-        self.assertTrue(board.valid_move('5'))
-        self.assertTrue(board.valid_move('6'))
+        self.assertFalse(board.valid_move(1))
+        self.assertTrue(board.valid_move(0))
+        self.assertTrue(board.valid_move(3))
+        self.assertTrue(board.valid_move(5))
+        self.assertTrue(board.valid_move(6))
 
     def test_is_full(self):
         board = Board(['X', 'O'], 'a')

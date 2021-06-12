@@ -1,36 +1,32 @@
 #!/usr/bin/python3
+from typing import List
+
+Players = List[str]
 
 class Board():
     ''' Sets up the game board. Handles also the current player. Checks if there is a win. '''
 
-    def __init__(self, players, empty_square=' '):
+    def __init__(self, players: Players, empty_square:str=' ') -> None:
         self.empty_square = empty_square
         self.players = players
         self.current_player = players[0]
         self.squares = [empty_square]*9
-
+        self.numpad_to_indices = {7:0, 8:1, 9:2, 4:3, 5:4, 6:5, 1:6, 2:7, 3:8}
     
-    @staticmethod
-    def map_input(input):
-        ''' Change the input from the numpad into indices of the squares. '''
-        numpad_to_indices = {7:0, 8:1, 9:2, 4:3, 5:4, 6:5, 1:6, 2:7, 3:8}
-        return numpad_to_indices[int(input)]
-
-    
-    def valid_move(self, square):
-        ''' Checks if a move given by the player is valid on the current board. '''
+    def valid_move(self, square:str):
+        ''' Checks if a move given by the player is valid on the current board. '''        
 
         try:
             square = int(square)
         except ValueError as e:
             print('Give a number.')
             return False
-
-        if square >= len(self.squares):
+            
+        if square not in self.numpad_to_indices:
             print('Out of bounds.')
             return False
 
-        if self.squares[square] in self.players:
+        if self.squares[self.numpad_to_indices[square]] in self.players:
             print('Already occupied.')
             return False
         
@@ -48,10 +44,12 @@ class Board():
         return self.current_player
 
 
-    def move(self, square):
+    def move(self, square:str):
         ''' Places the move from the current player on the board. '''
+
+        square = self.numpad_to_indices[int(square)]
         
-        self.squares[int(square)] = self.current_player
+        self.squares[square] = self.current_player
 
         return True
 
@@ -94,12 +92,11 @@ if __name__ == '__main__':
     while not ( board.has_won() or board.is_full() ):
 
         valid_move = False
-        while not valid_move:
+        while valid_move == False:
             numpad_input = input(f'Player {board.current_player}. What is your move (use numpad: 1-8 - upperleft is 7)? ')
-            square = board.map_input(numpad_input)
-            valid_move = board.valid_move(square)
+            valid_move = board.valid_move(numpad_input)
             if valid_move:
-                board.move(square)
+                board.move(numpad_input)
             if not board.has_won():
                 board.next_player()
 
