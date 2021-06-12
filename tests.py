@@ -15,7 +15,7 @@ class TestBoard(unittest.TestCase):
 
         board = Board(['X', 'O'], empty_square='a')
         board.squares = ['O', 'X', 'O', 'O', ' ', ' ', 'O', 'X', 'O' ]
-        board.move('5')
+        board.move('6')
         self.assertEqual(board.squares, ['O', 'X', 'O', 'O', ' ', 'X', 'O', 'X', 'O' ])
 
 
@@ -77,10 +77,13 @@ class TestBoard(unittest.TestCase):
         board = Board(['X', 'O'])
         board.squares = [' ', 'X', 'O', ' ', 'O', ' ', ' ', 'X', 'X' ]
 
-        self.assertFalse(board.valid_move(1))
-        self.assertTrue(board.valid_move(0))
-        self.assertTrue(board.valid_move(3))
-        self.assertTrue(board.valid_move(5))
+        self.assertFalse(board.valid_move('8'))
+        self.assertTrue(board.valid_move('7'))
+        self.assertTrue(board.valid_move('4'))
+        self.assertTrue(board.valid_move('1'))
+        self.assertTrue(board.valid_move('6'))
+        self.assertFalse(board.valid_move('42'))
+        self.assertFalse(board.valid_move('abc'))
         self.assertTrue(board.valid_move(6))
 
     def test_is_full(self):
