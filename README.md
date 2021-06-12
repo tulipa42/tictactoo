@@ -7,6 +7,10 @@ Object oriented (OO) Tic tac toe game in Python for two-player. It is command li
 | 4 | 5 | 6 |
 | 1 | 2  | 3 |
 
+## Requirements
+
+- Python 3.x
+
 ## Instruction
 
 ### For Linux

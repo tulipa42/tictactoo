@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 class Board():
+    ''' Sets up the game board. Handles also the current player. Checks if there is a win. '''
 
     def __init__(self, players, empty_square=' '):
         self.empty_square = empty_square
@@ -11,14 +12,13 @@ class Board():
     
     @staticmethod
     def map_input(input):
-
+        ''' Change the input from the numpad into indices of the squares. '''
         numpad_to_indices = {7:0, 8:1, 9:2, 4:3, 5:4, 6:5, 1:6, 2:7, 3:8}
-
         return numpad_to_indices[int(input)]
 
     
     def valid_move(self, square):
-        # TODO: Map the move input from numpad to indices of the squares list.
+        ''' Checks if a move given by the player is valid on the current board. '''
 
         try:
             square = int(square)
@@ -38,6 +38,7 @@ class Board():
 
     
     def next_player(self):
+        ''' Sets the next player as the current player. Supports more than one player. '''
         
         ix = self.players.index(self.current_player)
         # to get a cyclical index selection take the mod of the number of players
@@ -48,21 +49,19 @@ class Board():
 
 
     def move(self, square):
-
-        # TODO: Map the move input from numpad to indices of the squares list. 
+        ''' Places the move from the current player on the board. '''
         
-        
-
-        # self.squares.insert(int(square), self.current_player)
         self.squares[int(square)] = self.current_player
 
         return True
 
     def is_full(self):
+        ''' Checks if the board is full. The game ends. '''
 
         return self.empty_square not in self.squares
 
     def has_won(self):
+        ''' Checks if the current player has won the game after the player has made his move. '''
 
         return (self.squares[0:3] != [self.empty_square]*3 and self.squares[0] == self.squares[1] == self.squares[2]) or \
                (self.squares[3:6] != [self.empty_square]*3 and self.squares[3] == self.squares[4] == self.squares[5]) or \
@@ -76,6 +75,7 @@ class Board():
 
 
     def __str__(self):
+        ''' Pretty representation of the board class. '''
 
         line1 = f'{self.squares[0]} | {self.squares[1]} | {self.squares[2]}'
         line2 = f'{self.squares[3]} | {self.squares[4]} | {self.squares[5]}'
